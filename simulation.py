@@ -15,9 +15,9 @@ currentGreen = 0
 nextGreen = (currentGreen+1)%noOfSignals    
 currentYellow = 0   
 
-speeds = {'car':2.25, 'bus':1.8, 'truck':1.8, 'bike':2.5}  # average speeds of vehicles
+speeds = {'car':2.25, 'bus':1.8, 'truck':1.8, 'bike':2.5}  
 
-# Coordinates of vehicles' start
+
 x = {'right':[0,0,0], 'down':[755,727,697], 'left':[1400,1400,1400], 'up':[602,627,657]}    
 y = {'right':[348,370,398], 'down':[0,0,0], 'left':[498,466,436], 'up':[800,800,800]}
 
@@ -25,18 +25,16 @@ vehicles = {'right': {0:[], 1:[], 2:[], 'crossed':0}, 'down': {0:[], 1:[], 2:[],
 vehicleTypes = {0:'car', 1:'bus', 2:'truck', 3:'bike'}
 directionNumbers = {0:'right', 1:'down', 2:'left', 3:'up'}
 
-# Coordinates of signal image, timer, and vehicle count
+
 signalCoods = [(530,230),(810,230),(810,570),(530,570)]
 signalTimerCoods = [(530,210),(810,210),(810,550),(530,550)]
 
-# Coordinates of stop lines
+
 stopLines = {'right': 590, 'down': 330, 'left': 800, 'up': 535}
 defaultStop = {'right': 580, 'down': 320, 'left': 810, 'up': 545}
-# stops = {'right': [580,580,580], 'down': [320,320,320], 'left': [810,810,810], 'up': [545,545,545]}
 
-# Gap between vehicles
-stoppingGap = 15    # stopping gap
-movingGap = 15   # moving gap
+stoppingGap = 15    
+movingGap = 15   
 
 pygame.init()
 simulation = pygame.sprite.Group()
@@ -76,7 +74,7 @@ class Vehicle(pygame.sprite.Sprite):
         else:
             self.stop = defaultStop[direction]
             
-        # Set new starting and stopping coordinate
+        
         if(direction=='right'):
             temp = self.image.get_rect().width + stoppingGap    
             x[direction][lane] -= temp
@@ -96,11 +94,11 @@ class Vehicle(pygame.sprite.Sprite):
 
     def move(self):
         if(self.direction=='right'):
-            if(self.crossed==0 and self.x+self.image.get_rect().width>stopLines[self.direction]):   # if the image has crossed stop line now
+            if(self.crossed==0 and self.x+self.image.get_rect().width>stopLines[self.direction]):   
                 self.crossed = 1
             if((self.x+self.image.get_rect().width<=self.stop or self.crossed == 1 or (currentGreen==0 and currentYellow==0)) and (self.index==0 or self.x+self.image.get_rect().width<(vehicles[self.direction][self.lane][self.index-1].x - movingGap))):                
-            # (if the image has not reached its stop coordinate or has crossed stop line or has green signal) and (it is either the first vehicle in that lane or it is has enough gap to the next vehicle in that lane)
-                self.x += self.speed  # move the vehicle
+            
+                self.x += self.speed  
         elif(self.direction=='down'):
             if(self.crossed==0 and self.y+self.image.get_rect().height>stopLines[self.direction]):
                 self.crossed = 1
