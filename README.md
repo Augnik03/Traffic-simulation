@@ -26,6 +26,3 @@ The video below shows the final output of the simulation.
 <p align="center">
     <img src="./Demo.gif">
 </p>
-------------------------------------------
-### License
-This project is licensed under the MIT - see the [LICENSE](./LICENSE) file for details.
