@@ -162,7 +162,7 @@ def updateValues():
         else:
             signals[i].red-=1
 
-# Generating vehicles in the simulation
+
 def generateVehicles():
     while(True):
         vehicle_type = random.randint(0,3)
@@ -182,32 +182,32 @@ def generateVehicles():
         time.sleep(1)
 
 class Main:
-    thread1 = threading.Thread(name="initialization",target=initialize, args=())    # initialization
+    thread1 = threading.Thread(name="initialization",target=initialize, args=())   
     thread1.daemon = True
     thread1.start()
 
-    # Colours 
+    
     black = (0, 0, 0)
     white = (255, 255, 255)
 
-    # Screensize 
+    
     screenWidth = 1400
     screenHeight = 800
     screenSize = (screenWidth, screenHeight)
 
-    # Setting background image i.e. image of intersection
+    
     background = pygame.image.load('images/intersection.png')
 
     screen = pygame.display.set_mode(screenSize)
     pygame.display.set_caption("SIMULATION")
 
-    # Loading signal images and font
+    
     redSignal = pygame.image.load('images/signals/red.png')
     yellowSignal = pygame.image.load('images/signals/yellow.png')
     greenSignal = pygame.image.load('images/signals/green.png')
     font = pygame.font.Font(None, 30)
 
-    thread2 = threading.Thread(name="generateVehicles",target=generateVehicles, args=())    # Generating vehicles
+    thread2 = threading.Thread(name="generateVehicles",target=generateVehicles, args=())    
     thread2.daemon = True
     thread2.start()
 
@@ -216,8 +216,8 @@ class Main:
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        screen.blit(background,(0,0))   # display background in simulation
-        for i in range(0,noOfSignals):  # display signal and set timer according to current status: green, yello, or red
+        screen.blit(background,(0,0))   
+        for i in range(0,noOfSignals):  
             if(i==currentGreen):
                 if(currentYellow==1):
                     signals[i].signalText = signals[i].yellow
@@ -233,12 +233,12 @@ class Main:
                 screen.blit(redSignal, signalCoods[i])
         signalTexts = ["","","",""]
 
-        # display signal timer
+        
         for i in range(0,noOfSignals):  
             signalTexts[i] = font.render(str(signals[i].signalText), True, white, black)
             screen.blit(signalTexts[i],signalTimerCoods[i])
 
-        # display the vehicles
+        
         for vehicle in simulation:  
             screen.blit(vehicle.image, [vehicle.x, vehicle.y])
             vehicle.move()
