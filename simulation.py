@@ -115,7 +115,7 @@ class Vehicle(pygame.sprite.Sprite):
             if((self.y>=self.stop or self.crossed == 1 or (currentGreen==3 and currentYellow==0)) and (self.index==0 or self.y>(vehicles[self.direction][self.lane][self.index-1].y + vehicles[self.direction][self.lane][self.index-1].image.get_rect().height + movingGap))):                
                 self.y -= self.speed
 
-# Initialization of signals with default values
+
 def initialize():
     ts1 = TrafficSignal(0, defaultYellow, defaultGreen[0])
     signals.append(ts1)
@@ -129,15 +129,14 @@ def initialize():
 
 def repeat():
     global currentGreen, currentYellow, nextGreen
-    while(signals[currentGreen].green>0):   # while the timer of current green signal is not zero
+    while(signals[currentGreen].green>0):  
         updateValues()
         time.sleep(1)
-    currentYellow = 1   # set yellow signal on
-    # reset stop coordinates of lanes and vehicles 
+    currentYellow = 1    
     for i in range(0,3):
         for vehicle in vehicles[directionNumbers[currentGreen]][i]:
             vehicle.stop = defaultStop[directionNumbers[currentGreen]]
-    while(signals[currentGreen].yellow>0):  # while the timer of current yellow signal is not zero
+    while(signals[currentGreen].yellow>0):  
         updateValues()
         time.sleep(1)
     currentYellow = 0   # set yellow signal off
