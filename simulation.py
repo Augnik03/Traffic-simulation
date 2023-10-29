@@ -139,19 +139,16 @@ def repeat():
     while(signals[currentGreen].yellow>0):  
         updateValues()
         time.sleep(1)
-    currentYellow = 0   # set yellow signal off
-    
-     # reset all signal times of current signal to default times
+    currentYellow = 0  
     signals[currentGreen].green = defaultGreen[currentGreen]
     signals[currentGreen].yellow = defaultYellow
     signals[currentGreen].red = defaultRed
        
-    currentGreen = nextGreen # set next signal as green signal
-    nextGreen = (currentGreen+1)%noOfSignals    # set next green signal
-    signals[nextGreen].red = signals[currentGreen].yellow+signals[currentGreen].green    # set the red time of next to next signal as (yellow time + green time) of next signal
-    repeat()  
+    currentGreen = nextGreen 
+    nextGreen = (currentGreen+1)%noOfSignals    
+    signals[nextGreen].red = signals[currentGreen].yellow+signals[currentGreen].green   
 
-# Update values of the signal timers after every second
+
 def updateValues():
     for i in range(0, noOfSignals):
         if(i==currentGreen):
